@@ -36,6 +36,33 @@ public class Plant {
 	//TODO: Step 1 = CSV string constructor
 
 
+	public Plant (String csv){
+		if(csv == null || csv.isEmpty()) {
+			throw new IllegalArgumentException("CSV is null or empty");
+		}
+		String[] parts = csv.split (",");
+
+		if(parts.length != 3) {
+			throw new IllegalArgumentException("CSV contains more or less than 3 values: " + csv);
+		}
+		double temp;
+		String name = parts[0];
+		try{
+			 temp = Double.parseDouble(parts[1]);
+		} catch (NumberFormatException nfe) {
+			throw new IllegalArgumentException("Invalid Value, 2nd value must be a numeric value: " + csv);
+		} catch (NullPointerException npe) {
+			throw new IllegalArgumentException("Invalid Value, 2nd value can not be null: " + csv);
+		}
+
+		String uses = parts[2];
+
+		if(!this.setAll(name, temp, uses)){
+			throw new IllegalArgumentException("Invalid data provided after parsing: " + name + "; " + temp + "; " + uses + "; ");
+		}
+
+	}
+
 
 
 	// MUTATORS/SETTERS
